@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>sanchez-form</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    .container {
+        margin: 15em;
+    }
+</style>
+
+
+<body>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <!-- /// boostrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <!-- form.js -->
+    <script src="form.js"></script>
+
+
+
+
+
+    <div ng-app="mainApp">
+        <div ng-controller="mainController">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-8 animated fadeInUp animatedVisi">
+                        <div class="contact-body">
+                            <form class="form-wrapper" name='pendingForm' novalidate ng-show="show != true">
+                                <!-- NAME -->
+                                <div class="form-group" ng-class="{'has-error': (pendingForm.$submitted || pendingForm.name.$dirty) && pendingForm.name.$invalid}">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3 classic-form-input-v2">
+                                            <label for="name">
+                                                Name
+                                                <span style='color: red;'>*</span>
+                                            </label>
+                                            <input type="text" name="name" ng-model="formData.name" pattern="[a-zA-Z]+" class="form-control" ng-maxlength="40" placeholder="Project Name"
+                                                required />
+                                            <!-- VALIDATION MESSAGES -->
+                                            <span ng-show="(pendingForm.$submitted || pendingForm.name.$dirty) && pendingForm.name.$error.required" class="help-block"
+                                                style='font-weight: bold; color: red;' class='help-block'>
+                                                Program Name Is Required</span>
+                                            <span ng-show="pendingForm.name.$error.maxlength" class="help-block" style='font-weight: bold; color: red;' class='help-block'>
+                                                Max 40 Characters</span>
+                                            <span ng-show="pendingForm.name.$error.pattern" class="help-block" style='font-weight: bold; color: red;' class='help-block'>
+                                                No Numbers Allowed</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- EMAIL -->
+                                <div class="form-group" ng-class="{'has-error': (pendingForm.$submitted || pendingForm.email.$dirty) && pendingForm.email.$invalid}">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3 classic-form-input-v2 padding-bottom-20">
+                                            <label>
+                                                Email
+                                                <span style='color: red;'>*</span>
+                                            </label>
+                                            <input type="email" name="email" ng-model="formData.email" class="form-control" minlength="2" placeholder="Please Enter Valid Email"
+                                                required />
+                                            <!-- VALIDATION MESSAGES -->
+                                            <span ng-show="(pendingForm.$submitted || pendingForm.email.$dirty) && pendingForm.email.$error.required" class="help-block"
+                                                style='font-weight: bold; color: red;' class='help-block'>
+                                                Valid Email Required</span>
+                                            <span ng-show="pendingForm.email.$error.email" class="help-block" style='font-weight: bold; color: red;' class='help-block'>
+                                                Valid Email Format Required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- GRADE LEVEL -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-6 col-sm-offset-3 classic-form-input-v2 padding-bottom-20">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Select A Grade
+                                                </button>
+                                                <ul class="dropdown-menu" ng-model="formData.gradelevel">
+                                                    <div ng-repeat="(key,value) in gradeObject">
+                                                        <a ng-click="selectGrade(value)">{{key}}</a>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- SUBMIT BUTTON -->
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <button type="submit" ng-disabled="pendingForm.$invalid" ng-show="show != true" ng-click="insert()" class="btn btn-success">Submit</button>
+                                <span>
+                                    <button type="submit" ng-click="reset()" class="btn btn-warning">Reset</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="jumbotron" ng-show="show === true" style="position:center">
+                            <h1>Thank you, {{submittedForm.name}}! </h1>
+                            </br>
+                            <h3>We will send you more information via email shortly. </h3>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
